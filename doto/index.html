@@ -39,9 +39,9 @@
     <!-- Add task div -->
     <div id="add" style="display:none">
         <div class="w-full">
-            <div class="flex w-full flex-col  px-3">
+            <div class="flex w-full flex-col py-16 px-3">
 
-                <label class="font-bold w-11/12 m-auto" for="c1">Add task</label>
+                <label class="font-bold w-11/12 m-auto text-xl " for="task">Add task</label>
                 <input type="text" id="task"
                     class="w-11/12 my-2 mx-auto border-2 border-gray-400   bg-gray-300  flex p-3 justify-between rounded-md"
                     id="task">
@@ -87,33 +87,34 @@
         var allTask = document.getElementById("allTask");
         var tasksToDo = [];
         submit.addEventListener("click", () => {
-            var tosubmit = {
-                id: tasksToDo.length + 1,
-                task: task.value,
-                complete: false,
-            };
-            tasksToDo.push(tosubmit);
-            console.log(tasksToDo);
-            var li = document.createElement("li");
-            li.classList.add("w-11/12", "m-auto");
-            var bc = document.createElement("div");
-            bc.classList.add("w-full", "my-2", "border-2", "border-gray-400", "bg-gray-300", "flex", "p-5", "justify-between", "rounded-md");
-            var c1 = document.createElement("div");
-            c1.classList.add("flex", "items-center", "px-3");
-            var input = document.createElement("input");
-            input.classList.add("w-7", "h-7", "mr-3");
-            input.type = "checkbox";
-            var label = document.createElement("label");
-            label.classList.add("font-bold", "px-5");
-            label.innerHTML = `${tosubmit.task}`;
-            c1.appendChild(input);
-            c1.appendChild(label);
-            bc.appendChild(c1);
-            var c2 = document.createElement("div");
-            c2.classList.add("flex", "items-center");
-            var button = document.createElement("button");
-            button.classList.add("flex", "px-4", "p-2", "items-center", "rounded-sm");
-            button.innerHTML = `<svg viewBox="0 0 512 512" width="24" height="24" xmlns="http://www.w3.org/2000/svg"
+            if (task.value !== "") {
+                var tosubmit = {
+                    id: tasksToDo.length + 1,
+                    task: task.value,
+                    complete: false,
+                };
+                tasksToDo.push(tosubmit);
+                console.log(tasksToDo);
+                var li = document.createElement("li");
+                li.classList.add("w-11/12", "m-auto");
+                var bc = document.createElement("div");
+                bc.classList.add("w-full", "my-2", "border-2", "border-gray-400", "bg-gray-300", "flex", "p-5", "justify-between", "rounded-md");
+                var c1 = document.createElement("div");
+                c1.classList.add("flex", "items-center", "px-3");
+                var input = document.createElement("input");
+                input.classList.add("w-7", "h-7", "mr-3");
+                input.type = "checkbox";
+                var label = document.createElement("label");
+                label.classList.add("font-bold", "px-5");
+                label.innerHTML = `${tosubmit.task}`;
+                c1.appendChild(input);
+                c1.appendChild(label);
+                bc.appendChild(c1);
+                var c2 = document.createElement("div");
+                c2.classList.add("flex", "items-center");
+                var button = document.createElement("button");
+                button.classList.add("flex", "px-4", "p-2", "items-center", "rounded-sm");
+                button.innerHTML = `<svg viewBox="0 0 512 512" width="24" height="24" xmlns="http://www.w3.org/2000/svg"
                                 fill="#ff0000" stroke="#ff0000">
                                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -123,28 +124,32 @@
                                     </path>
                                 </g>
                             </svg>`;
-            c2.appendChild(button);
-            bc.appendChild(c2);
-            li.appendChild(bc);
+                c2.appendChild(button);
+                bc.appendChild(c2);
+                li.appendChild(bc);
 
 
-            allTask.appendChild(li);
-            task.value = "";
+                allTask.appendChild(li);
+                task.value = "";
 
-            button.addEventListener("click", () => {
-                allTask.removeChild(li);
-            });
+                button.addEventListener("click", () => {
+                    allTask.removeChild(li);
 
-            input.addEventListener("click", () => {
-                if (li.style.textDecoration == "line-through") {
-                    li.style.textDecoration = "none";
-                } else {
-                    li.style.textDecoration = "line-through";
-                }
+                });
 
-            });
+                input.addEventListener("click", () => {
+                    if (li.style.textDecoration == "line-through") {
+                        li.style.textDecoration = "none";
+                        tosubmit.complete=false;
+                    } else {
+                        li.style.textDecoration = "line-through";
+                        tosubmit.complete=true;
+                    }
+                    console.log(tasksToDo);
+                });
 
-
+            }
+           
         });
 
 
@@ -152,6 +157,7 @@
 
 
         function showAdd() {
+
             var add = document.getElementById("add");
             var task = document.getElementById("task");
             add.style.display = "block";
@@ -162,10 +168,14 @@
 
 
         function addTask() {
+        
             var add = document.getElementById("add");
             var task = document.getElementById("task");
             add.style.display = "none";
             tasks.style.display = "block";
+
+
+
 
 
         }
